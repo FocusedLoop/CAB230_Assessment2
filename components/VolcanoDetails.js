@@ -2,31 +2,28 @@ import React from "react";
 import { Button } from "reactstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
+import errorCases from "./ErrorHandling";
 
 export default function VolcaneoByID() {
     const navigate = useNavigate();
     const [SearchParams] = useSearchParams();
     const id = SearchParams.get("id");
     const [volcanoDetails, setVolcanoDetails] = useState(null);
-    const [VolcanoTokenDetails, setVolcanoTokenDetails] = useState(false);
+    const [volcanoTokenDetails, setVolcanoTokenDetails] = useState(false);
     const token = localStorage.getItem('token');
 
     // Fecth data from API selected by ID
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const response = await fetch(`http://4.237.58.241:3000/volcano/${id}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch volcano details');
-                }
-                const data = await response.json();
-                console.log(token);
-                setVolcanoDetails(data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
+        const fetchData = () => {
+            fetch(`http://4.237.58.241:3000/volcano/${id}`)
+                .then(response => errorCases(response))
+                .then(data => {
+                    setVolcanoDetails(data);
+                })
+                .catch(error => {
+                    console.error('Failed to fetch volcano details:', error.message);
+                });
+        };
         fetchData();
     }, [id]);
 
@@ -50,7 +47,7 @@ export default function VolcaneoByID() {
                         <li>Elevation: {volcanoDetails.elevation}</li>
                         <li>Latitude: {volcanoDetails.latitude}</li>
                         <li>Longitude: {volcanoDetails.longitude}</li>
-                        {VolcanoTokenDetails && (
+                        {volcanoTokenDetails && (
                             <>
                                 <li>Population within 5km: {volcanoDetails.population_5km}</li>
                                 <li>Population within 10km: {volcanoDetails.population_10km}</li>

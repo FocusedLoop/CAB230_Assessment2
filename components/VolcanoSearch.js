@@ -1,18 +1,25 @@
+import errorCases from "./ErrorHandling";
+
 // fetch volcano data from a desired country
 // Return the set desired values in an object
 export default function getVolcanoByCountry(country) {
   return fetch(`http://4.237.58.241:3000/volcanoes?country=${country}`)
-    .then(res => res.json())
-    .then(data => 
-      data.map(volcaneo => {
-        return {
-          id: volcaneo.id,
-          name: volcaneo.name,
-          country: volcaneo.country,
-          region: volcaneo.region,
-          subregion: volcaneo.subregion
-        };
-      })
-    )
+    .then(response => errorCases(response))
+    .then(data => {
+      if (typeof data === 'string') {
+        throw new Error(data);
+      }
+      return data.map(volcano => ({
+        id: volcano.id,
+        name: volcano.name,
+        country: volcano.country,
+        region: volcano.region,
+        subregion: volcano.subregion
+      }));
+    })
+    .catch(error => {
+      console.error('Error fetching volcano data:', error.message);
+      throw error;
+    });
 }
 // Add catch error

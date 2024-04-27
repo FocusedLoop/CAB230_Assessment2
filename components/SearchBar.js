@@ -1,59 +1,57 @@
 import { useState, useEffect } from 'react';
-import { Button } from "reactstrap";
+import { Alert, Button } from "reactstrap";
+import errorCases from './ErrorHandling';
 
 function SearchBar(props) {
-    const [countries, setCountries] = useState([]);
-    const [error, setError] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
     const [innerSearch, setInnerSearch] = useState('');
 
     // Fetch all listed countries from the API where there are volcanos
-    useEffect(() => {
-      const fetchCountries = async () => {
-          try {
-              const response = await fetch('http://4.237.58.241:3000/countries');
-              if (!response.ok) {
-                throw new Error('Failed to fetch country details');
-            }
-              const data = await response.json();
-              setCountries(data);
-          } catch (error) {
-            setError('Failed to match country')
-          }
-        };
-        fetchCountries();
-      }, []);
+    const onSubmit = (e) => {
+      e.preventDefault();
+  
+      fetch('http://4.237.58.241:3000/countries')
+          .then(response => errorCases(response))
+          .then(data => {
+              if (!data.includes(innerSearch)) {
+                  console.error('Error: Country not found');
+                  setErrorMessage('Country not found');
+                  return;
+              }
+              setErrorMessage(null);
+              props.onSubmit(innerSearch);
+          })
+          .catch(error => {
+              console.error('Error fetching countries:', error.message);
+              setErrorMessage('Failed to fetch countries');
+          });
+    };
     
     // User can search for desired country's
     // Check to see if the user has inputted a vailed country listed in the API
     return (
       <div>
-        <input
-          aria-labelledby='search-button'
-          name='search'
-          id='search'
-          type='search'
-          value={innerSearch}
-          onChange={(e) => {setInnerSearch(e.target.value)}}
-        />
-        <Button 
+        <form onSubmit={onSubmit}>
+          <input
+            aria-labelledby='search-button'
+            name='search'
+            id='search'
+            type='search'
+            value={innerSearch}
+            onChange={(e) => {setInnerSearch(e.target.value)}}
+          />
+          <Button 
             id='search-button' 
-            type='button'
-            onClick={() => {
-              if (countries.includes(innerSearch)) {
-                setError(null);
-                props.onSubmit(innerSearch)
-              } else if (!(/^[a-zA-Z]+$/).test(innerSearch)) {
-                setError("Invalid Character!")
-              } else {
-                setError("Invalid Country!")
-              }
-            }}
-        >
-          Search
-        </Button>
-        {error != null ? <p>Error: {error}</p> : null}
+            type='submit'
+          >
+            Search
+          </Button>
+        </form>
+        <Alert color='warning' hidden={!errorMessage}>
+						{errorMessage}
+				</Alert>
       </div>
     );
-  }
+}
   
   export default SearchBar;

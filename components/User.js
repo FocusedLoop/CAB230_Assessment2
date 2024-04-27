@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Alert } from 'reactstrap';
+import errorCases from './ErrorHandling';
 
 function UserInterface() {
     const [result, setResult] = useState(null);
@@ -14,7 +15,8 @@ function UserInterface() {
 			},
 			body: JSON.stringify({ email: email, password: password }),
         })
-            .then((res) => res.json())
+			.then(errorCases)
+            //.then((res) => res.json())
 			.then((res) => {
 				if (res.error) {
 					setErrorMessage(res.message);
@@ -25,7 +27,10 @@ function UserInterface() {
 				setResult(JSON.stringify(res));
 				console.log(res);
 			})
-            .catch((error) => console.log(error.essage));
+            .catch((error) => {
+				console.error('Error during login:', error.message);
+				setErrorMessage('An error occurred during login');
+			});
     };
 
     // register (dont have yet)
