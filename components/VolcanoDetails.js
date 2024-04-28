@@ -3,6 +3,7 @@ import { Button } from "reactstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import errorCases from "./ErrorHandling";
+import API_Urls from "./APIConfig";
 
 export default function VolcaneoByID() {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function VolcaneoByID() {
     // Fecth data from API selected by ID
     useEffect(() => {
         const fetchData = () => {
-            fetch(`http://4.237.58.241:3000/volcano/${id}`)
+            fetch(`${API_Urls.volcanoAPI}${id}`)
                 .then(response => errorCases(response))
                 .then(data => {
                     setVolcanoDetails(data);
@@ -63,8 +64,7 @@ export default function VolcaneoByID() {
                 size="sm"
                 className="mt-3"
                 onClick={() => {
-                    navigate("/"); 
-                    localStorage.removeItem('token'); // move to logout button
+                    navigate("/volcanoes"); 
                 }}
             >
                 Back

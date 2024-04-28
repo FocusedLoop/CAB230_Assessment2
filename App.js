@@ -1,62 +1,46 @@
 import './App.css';
-import { useState, useEffect } from "react";
-import { AgGridReact } from "ag-grid-react";
-import { useNavigate } from "react-router-dom";
-import getVolcanoByCountry from './components/VolcanoSearch';
-import SearchBar from './components/SearchBar';
+import { Alert, Nav, Navbar } from "reactstrap";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-balham.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import UserInterface from './components/User';
+import UserLogin from './containers/LoginPage';
+import UserRegistration from './containers/RegisterPage';
+import HomePage from './containers/HomePage';
+import ListedVolcanoes from './containers/VolcanoList';
+import { Routes, Route, Link } from "react-router-dom";
+import {NavbarBrand, NavItem, NavLink } from 'reactstrap';
 
-// Current base website (displays the list of volcanoes and functionality)
-export default function App() {
-  const [search, setSearch] = useState('Japan');
-  const [rowData, setRowData] = useState([]);
-  const navigate = useNavigate();
-
-  const columns = [
-    { headerName: "Name", field:  "name" },
-    { headerName: "Region", field:  "region" },
-    { headerName: "Subregion", field:  "subregion" },
-  ]
-
-  // User can search for volcano's by country
-  // Fetch the data produce from getVolcanoByCountry selected by the search value
-  // Set the data to row data
-  useEffect(() => {
-    getVolcanoByCountry(search)
-    .then(volcaneos => setRowData(volcaneos))
-  }, [search]);
-
-  // Display the row data
+function App() {
   return (
-    <div
-      className="ag-theme-balham"
-      style={{
-        height:"420px",
-        width:"620px"
-      }}
-    >
-      Country: &nbsp;
-      <SearchBar onSubmit={setSearch}/> &nbsp;
-      Populated within: &nbsp;
-      <select id="dropdown">
-        <option value="">5km</option>
-        <option value="">10km</option>
-        <option value="">30km</option>
-        <option value="">100km</option>
-      </select>
-      <AgGridReact
-        columnDefs={columns}
-        rowData={rowData} 
-        pagination={true}
-        paginationPageSize={20}
+    <div className="App">
+      <Navbar color="dark" dark expand="md">
+        <NavbarBrand href="/">My App</NavbarBrand>
+        <Nav className="mr-auto" navbar>
+          <NavItem>
+            <NavLink tag={Link} to="/">Home</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink tag={Link} to="/volcanoes">Volcanoes</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink tag={Link} to="/login">Login</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink tag={Link} to="/register">Register</NavLink>
+          </NavItem>
+        </Nav>
+      </Navbar>
 
-        onRowClicked={(row) => navigate(`/volcaneo?id=${row.data.id}`)}
-      />
-      <UserInterface/>
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/volcanoes" element={<ListedVolcanoes />} />
+          <Route path="/login" element={<UserLogin />} />
+          <Route path="/register" element={<UserRegistration />} />
+        </Routes>
+      </div>
     </div>
-    
   );
 }
+
+export default App;

@@ -1,14 +1,16 @@
+import React from "react";
 import { useState } from 'react';
 import { Alert } from 'reactstrap';
-import errorCases from './ErrorHandling';
+import errorCases from '../components/ErrorHandling';
+import API_Urls from "../components/APIConfig";
 
-function UserInterface() {
+function UserLogin() {
     const [result, setResult] = useState(null);
 	const [errorMessage, setErrorMessage] = useState(null);
 
 	// Fetech login details from API check if the email and password matches a user in the system
     const login = (email, password) => {
-        return fetch('http://4.237.58.241:3000/user/login', {
+        return fetch(`${API_Urls.loginAPI}`, {
             method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -38,18 +40,14 @@ function UserInterface() {
 	// Check if the fields are valued and assign the inputted values to email and password
     const onSubmit = (e) => {
         e.preventDefault();
-        // test *regex* rule, just my example ok? you may need to adjust this for the assignment
-		if (!e.target.email.value.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
-			setErrorMessage('Invalid email');
-			return;
-		}
-		if (e.target.password.value.length > 16) {
-			setErrorMessage('Password must be less than 16 characters');
-			return;
-		}
-
-		setErrorMessage(null);
-		login(e.target.email.value, e.target.password.value);
+		const email = e.target.email.value;
+        const password = e.target.password.value;
+        if (!email || !password) {
+            setErrorMessage('Please enter both email and password');
+            return;
+        }
+        
+        login(email, password);
     };
 
 	// Display a input field so user can input a email and password. Allow the user to submit this information
@@ -72,4 +70,4 @@ function UserInterface() {
     )
 }
 
-export default UserInterface;
+export default UserLogin;

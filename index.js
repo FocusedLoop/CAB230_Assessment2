@@ -6,15 +6,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import VolcaneoByID from './components/VolcanoDetails';
 
+
 // Fix spelling error
 // Creates url path for different pages
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+      <App />
       <Routes>
         <Route path="/volcaneo" element={<VolcaneoByID />} />
-        <Route path="/" element={<App />}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

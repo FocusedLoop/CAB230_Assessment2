@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
 import { Alert, Button } from "reactstrap";
 import errorCases from './ErrorHandling';
+import API_Urls from './APIConfig';
 
 function SearchBar(props) {
     const [errorMessage, setErrorMessage] = useState(null);
     const [innerSearch, setInnerSearch] = useState('');
 
     // Fetch all listed countries from the API where there are volcanos
+    // Seperate the data from the UI??
     const onSubmit = (e) => {
       e.preventDefault();
   
-      fetch('http://4.237.58.241:3000/countries')
+      fetch(API_Urls.listCountriesAPI)
           .then(response => errorCases(response))
           .then(data => {
               if (!data.includes(innerSearch)) {

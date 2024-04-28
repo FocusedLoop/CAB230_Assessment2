@@ -1,9 +1,10 @@
 import errorCases from "./ErrorHandling";
+import API_Urls from "./APIConfig";
 
 // fetch volcano data from a desired country
 // Return the set desired values in an object
 export default function getVolcanoByCountry(country) {
-  return fetch(`http://4.237.58.241:3000/volcanoes?country=${country}`)
+  return fetch(`${API_Urls.selectCountiresAPI}${country}`)
     .then(response => errorCases(response))
     .then(data => {
       if (typeof data === 'string') {
