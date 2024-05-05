@@ -18,7 +18,6 @@ function UserLogin() {
 			body: JSON.stringify({ email: email, password: password }),
         })
 			.then(errorCases)
-            //.then((res) => res.json())
 			.then((res) => {
 				if (res.error) {
 					setErrorMessage(res.message);

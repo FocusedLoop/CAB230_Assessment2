@@ -19,3 +19,8 @@ body {
 .nav a {
     color: inherit;
 }
+
+.ag-theme-balham {
+    border-collapse: collapse;
+    margin: auto;
+}

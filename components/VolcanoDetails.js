@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 import errorCases from "./ErrorHandling";
 import API_Urls from "./APIConfig";
 
+import { Map, Marker } from "pigeon-maps"
+
 export default function VolcaneoByID() {
     const navigate = useNavigate();
     const [SearchParams] = useSearchParams();
@@ -34,41 +36,54 @@ export default function VolcaneoByID() {
     }, [token])
 
     // Display volcano details and display extra volcano details if a token is present
+    // react dropdown
     return (
         <div className="container">
-            {volcanoDetails && (
-                <div>
-                    <h2>{volcanoDetails.name} | ID: {id}</h2>
-                    <ul>
-                        <li>Country: {volcanoDetails.country}</li>
-                        <li>Region: {volcanoDetails.region}</li>
-                        <li>Subregion: {volcanoDetails.subregion}</li>
-                        <li>Last Eruption: {volcanoDetails.last_eruption}</li>
-                        <li>Summit: {volcanoDetails.summit}</li>
-                        <li>Elevation: {volcanoDetails.elevation}</li>
-                        <li>Latitude: {volcanoDetails.latitude}</li>
-                        <li>Longitude: {volcanoDetails.longitude}</li>
-                        {volcanoTokenDetails && (
-                            <>
-                                <li>Population within 5km: {volcanoDetails.population_5km}</li>
-                                <li>Population within 10km: {volcanoDetails.population_10km}</li>
-                                <li>Population within 30km: {volcanoDetails.population_30km}</li>
-                                <li>Population within 100km: {volcanoDetails.population_100km}</li>
-                            </>
-                        )}
-                    </ul>
-                </div>
-            )}
-            <Button
-                color="info"
-                size="sm"
-                className="mt-3"
-                onClick={() => {
-                    navigate("/volcanoes"); 
-                }}
-            >
-                Back
-            </Button>
+            <div style={{ display: 'flex' }}>
+                {volcanoDetails && (
+                    <div style={{ flex: 1 }}>
+                        <h1>Volcano {id}: {volcanoDetails.name}</h1>
+                        <h5 style={{ lineHeight: '2' }}>
+                            Country: {volcanoDetails.country}<br/>
+                            Region: {volcanoDetails.region}<br/>
+                            Subregion: {volcanoDetails.subregion}<br/>
+                            Last Eruption: {volcanoDetails.last_eruption}<br/>
+                            Summit: {volcanoDetails.summit}<br/>
+                            Elevation: {volcanoDetails.elevation}<br/>
+                            {volcanoTokenDetails && (
+                                <>
+                                    Population within 5km: {volcanoDetails.population_5km}<br/>
+                                    Population within 10km: {volcanoDetails.population_10km}<br/>
+                                    Population within 30km: {volcanoDetails.population_30km}<br/>
+                                    Population within 100km: {volcanoDetails.population_100km}
+                                </>
+                            )}
+                            Population Density
+                        </h5>
+                        <Button
+                            color="info"
+                            size="sm"
+                            className="mt-3"
+                            onClick={() => {
+                                navigate("/volcanoes"); 
+                            }}
+                        >
+                            Back
+                        </Button>
+                    </div>
+                )}
+                {volcanoDetails && (
+                    <div style={{ flex: 3 }}>
+                        <Map 
+                            height={600}
+                            defaultCenter={[0, 0]}
+                            defaultZoom={2}
+                            mouseEvents={false}>
+                            <Marker width={50} anchor={[parseFloat(volcanoDetails.latitude), parseFloat(volcanoDetails.longitude)]} />
+                        </Map>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

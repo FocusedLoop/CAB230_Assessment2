@@ -5,6 +5,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import VolcaneoByID from './components/VolcanoDetails';
+import HomePage from './containers/HomePage';
+import UserLogin from './containers/LoginPage';
+import UserRegistration from './containers/RegisterPage';
+import ListedVolcanoes from './containers/VolcanoList';
 
 
 // Fix spelling error
@@ -15,6 +19,10 @@ root.render(
     <BrowserRouter>
       <App />
       <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/volcanoes" element={<ListedVolcanoes />} />
+        <Route path="/login" element={<UserLogin />} />
+        <Route path="/register" element={<UserRegistration />} />
         <Route path="/volcaneo" element={<VolcaneoByID />} />
       </Routes>
     </BrowserRouter>

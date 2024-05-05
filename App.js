@@ -30,15 +30,6 @@ function App() {
           </NavItem>
         </Nav>
       </Navbar>
-
-      <div className="container">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/volcanoes" element={<ListedVolcanoes />} />
-          <Route path="/login" element={<UserLogin />} />
-          <Route path="/register" element={<UserRegistration />} />
-        </Routes>
-      </div>
     </div>
   );
 }

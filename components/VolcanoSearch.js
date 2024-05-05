@@ -3,8 +3,8 @@ import API_Urls from "./APIConfig";
 
 // fetch volcano data from a desired country
 // Return the set desired values in an object
-export default function getVolcanoByCountry(country) {
-  return fetch(`${API_Urls.selectCountiresAPI}${country}`)
+export default function getVolcanoByCountry(country, filter) {
+  return fetch(`${API_Urls.selectCountiresAPI}${country}${filter}`)
     .then(response => errorCases(response))
     .then(data => {
       if (typeof data === 'string') {
@@ -18,9 +18,5 @@ export default function getVolcanoByCountry(country) {
         subregion: volcano.subregion
       }));
     })
-    .catch(error => {
-      console.error('Error fetching volcano data:', error.message);
-      throw error;
-    });
 }
 // Add catch error

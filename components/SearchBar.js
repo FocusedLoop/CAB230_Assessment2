@@ -16,8 +16,8 @@ function SearchBar(props) {
           .then(response => errorCases(response))
           .then(data => {
               if (!data.includes(innerSearch)) {
-                  console.error('Error: Country not found');
-                  setErrorMessage('Country not found');
+                  console.error('Error: Invalid Query');
+                  setErrorMessage('Invalid Query');
                   return;
               }
               setErrorMessage(null);
@@ -39,12 +39,14 @@ function SearchBar(props) {
             name='search'
             id='search'
             type='search'
+            placeholder='Search Country'
             value={innerSearch}
             onChange={(e) => {setInnerSearch(e.target.value)}}
           />
           <Button 
             id='search-button' 
             type='submit'
+            color='primary'
           >
             Search
           </Button>
