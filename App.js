@@ -9,8 +9,25 @@ import HomePage from './containers/HomePage';
 import ListedVolcanoes from './containers/VolcanoList';
 import { Routes, Route, Link } from "react-router-dom";
 import {NavbarBrand, NavItem, NavLink } from 'reactstrap';
+import React, { useState, useEffect } from "react";
+
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('token') !== null);
+
+  const userLogin = () => {
+    if (localStorage.getItem('token') != null) {
+      window.location.reload();
+      setLoggedIn(true);
+    }
+  };
+
+  const userLogout = () => {
+    window.location.reload();
+    localStorage.removeItem('token');
+    setLoggedIn(false);
+  }
+
   return (
     <div className="App">
       <Navbar color="dark" dark expand="md">
@@ -23,11 +40,17 @@ function App() {
             <NavLink tag={Link} to="/volcanoes">Volcanoes</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink tag={Link} to="/login">Login</NavLink>
+            {loggedIn ? (
+              <NavLink onClick={userLogout}>Logout</NavLink>
+            ) : (
+              <NavLink onClick={userLogin} tag={Link} to="/login">Login</NavLink>
+            )}
           </NavItem>
-          <NavItem>
-            <NavLink tag={Link} to="/register">Register</NavLink>
-          </NavItem>
+          {!loggedIn && (
+            <NavItem>
+              <NavLink tag={Link} to="/register">Register</NavLink>
+            </NavItem>
+          )}
         </Nav>
       </Navbar>
     </div>

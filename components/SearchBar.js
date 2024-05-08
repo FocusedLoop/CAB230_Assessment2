@@ -16,9 +16,9 @@ function SearchBar(props) {
           .then(response => errorCases(response))
           .then(data => {
               if (!data.includes(innerSearch)) {
-                  console.error('Error: Invalid Query');
-                  setErrorMessage('Invalid Query');
-                  return;
+                console.error('Error: Invalid Query: Bad request - 400');
+                setErrorMessage('Invalid Query');
+                return;
               }
               setErrorMessage(null);
               props.onSubmit(innerSearch);

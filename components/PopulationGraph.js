@@ -8,11 +8,9 @@ const BarGraph = ({ volcanoDetails }) => {
 
     useEffect(() => {
         if (volcanoDetails) {
-
             if (chartRef.current) {
                 chartRef.current.destroy();
             }
-
             drawPopulationChart();
         }
     }, [volcanoDetails]);

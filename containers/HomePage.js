@@ -6,16 +6,9 @@ const HomePage = () => {
   return (
     <div>
       <h1>Home Page</h1>
-      <Button
-                color="info"
-                size="sm"
-                className="mt-3"
-                onClick={() => {
-                    localStorage.removeItem('token');
-                }}
-            >
-                Logout
-        </Button>
+      <Button color="info" size="sm" className="mt-3" onClick={() => {localStorage.removeItem('token');}}>
+        Logout
+      </Button>
     </div>
   );
 };

@@ -26,6 +26,9 @@ root.render(
         <Route path="/volcaneo" element={<VolcaneoByID />} />
       </Routes>
     </BrowserRouter>
+    <div className='footer'>
+      <p>&copy; 2024 MyApp. All rights reserved.</p>
+    </div>
   </React.StrictMode>
 );
 
