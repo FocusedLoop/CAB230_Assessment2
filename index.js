@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserRouter, Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -27,7 +27,7 @@ root.render(
       </Routes>
     </BrowserRouter>
     <div className='footer'>
-      <p>&copy; 2024 MyApp. All rights reserved.</p>
+      <p>&copy; 2024 Find My Volcano. All rights reserved.</p>
     </div>
   </React.StrictMode>
 );

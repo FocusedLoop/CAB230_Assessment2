@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { Alert, Button } from 'reactstrap';
 import errorCases from '../components/ErrorHandling';
 import API_Urls from "../components/APIConfig";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import ValidateField from "../components/formValidation";
 
 function UserLogin() {
     const [result, setResult] = useState(null);
@@ -49,8 +50,13 @@ function UserLogin() {
 		const email = e.target.email.value;
         const password = e.target.password.value;
         if (!email || !password) {
-			console.error('Invalid data missing: 400');
+			console.error('Invalid authentication data: 400');
             setErrorMessage('Please enter both email and password');
+            return;
+        }
+		if (ValidateField(email, password) != null) {
+			console.error('Invalid authentication data: 400');
+            setErrorMessage(ValidateField(email, password));
             return;
         }
         login(email, password);

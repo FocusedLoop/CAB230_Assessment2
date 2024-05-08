@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Alert, Button } from "reactstrap";
 import errorCases from './ErrorHandling';
 import API_Urls from './APIConfig';
@@ -34,6 +34,7 @@ function SearchBar(props) {
     return (
       <div>
         <form onSubmit={onSubmit}>
+          <span>Country:</span> &nbsp;
           <input
             aria-labelledby='search-button'
             name='search'
@@ -42,12 +43,8 @@ function SearchBar(props) {
             placeholder='Search Country'
             value={innerSearch}
             onChange={(e) => {setInnerSearch(e.target.value)}}
-          />
-          <Button 
-            id='search-button' 
-            type='submit'
-            color='primary'
-          >
+          />&nbsp;
+          <Button id='search-button' type='submit' color='primary' size="sm">
             Search
           </Button>
         </form>

@@ -3,11 +3,10 @@ import { AgGridReact } from "ag-grid-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Alert, Button } from "reactstrap";
 import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-balham.css";
+import "ag-grid-community/styles/ag-theme-quartz.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import getVolcanoByCountry from '../components/VolcanoSearch';
 import SearchBar from '../components/SearchBar';
-import volcanoTable from '../App.css'
 
 // Current base website (displays the list of volcanoes and functionality)
 function ListedVolcanoes() {
@@ -51,18 +50,15 @@ function ListedVolcanoes() {
   // put stuff in css file
   return (
     <div
-      className="ag-theme-balham"
+      className="ag-theme-quartz"
       style={{
-        height:"520px",
+        height:"465px",
         width:"620px",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <span>Country:</span>
+      <div className="right">
         <SearchBar onSubmit={setSearch} />
-      </div>
-      <div>
-        <span>Population Within:</span>
+        <span className="right">Population Within:</span>&nbsp;
         <select id="dropdown" onChange={(e) => handlePopulationFilterChange(e.target.value)}>
           <option value="">Select</option>
           <option value="&populatedWithin=5km">5km</option>
@@ -76,7 +72,6 @@ function ListedVolcanoes() {
         rowData={rowData} 
         pagination={true}
         paginationPageSize={20}
-
         onRowClicked={(row) => navigate(`/volcaneo?id=${row.data.id}`)}
       />
       <Alert color='warning' hidden={!errorMessage}>

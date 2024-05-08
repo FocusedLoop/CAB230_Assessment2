@@ -3,13 +3,9 @@ import { Alert, Nav, Navbar } from "reactstrap";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-balham.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import UserLogin from './containers/LoginPage';
-import UserRegistration from './containers/RegisterPage';
-import HomePage from './containers/HomePage';
-import ListedVolcanoes from './containers/VolcanoList';
 import { Routes, Route, Link } from "react-router-dom";
 import {NavbarBrand, NavItem, NavLink } from 'reactstrap';
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 
 function App() {
@@ -30,8 +26,8 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar color="dark" dark expand="md">
-        <NavbarBrand href="/">My App</NavbarBrand>
+      <Navbar color="dark" dark expand="md" fixed='top'>
+        <NavbarBrand href="/">Find My Volcano</NavbarBrand>
         <Nav className="mr-auto" navbar>
           <NavItem>
             <NavLink tag={Link} to="/">Home</NavLink>

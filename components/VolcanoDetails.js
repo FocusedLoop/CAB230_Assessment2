@@ -41,7 +41,7 @@ export default function VolcanoByID() {
     // react dropdown
     return (
         <div className="container">
-            <div style={{ display: 'flex' }}>
+            <div className='details'>
                 {volcanoDetails && (
                     <div style={{ flex: 1 }}>
                         <h2>Volcano {id}: {volcanoDetails.name}</h2>
@@ -50,7 +50,7 @@ export default function VolcanoByID() {
                             Region: {volcanoDetails.region}<br/>
                             Subregion: {volcanoDetails.subregion}<br/>
                             Last Eruption: {volcanoDetails.last_eruption}<br/>
-                            Summit: {volcanoDetails.summit}<br/>
+                            Summit: {volcanoDetails.summit} ft<br/>
                             Elevation: {volcanoDetails.elevation}<br/>
                             {volcanoTokenDetails && (
                                 <>
@@ -76,11 +76,12 @@ export default function VolcanoByID() {
                     </div>
                 )}
                 {volcanoDetails && (
-                    <div style={{ flex: 3 }}>
+                    <div style={{ flex: 2 }}>
                         <Map 
-                            height={620}
+                            height={615}
+                            width={735}
                             defaultCenter={[0, 0]}
-                            defaultZoom={2}
+                            defaultZoom={1.525}
                             mouseEvents={false}>
                             <Marker width={50} anchor={[parseFloat(volcanoDetails.latitude), parseFloat(volcanoDetails.longitude)]} />
                         </Map>

@@ -3,6 +3,7 @@ import { Alert, Button } from 'reactstrap';
 import errorCases from '../components/ErrorHandling';
 import API_Urls from "../components/APIConfig";
 import { useNavigate, useParams } from "react-router-dom";
+import ValidateField from "../components/formValidation";
 
 function UserRegistration() {
     //const [result, setResult] = useState(null);
@@ -39,13 +40,18 @@ function UserRegistration() {
         const password = e.target.password.value;
         const confirmPassword = e.target.confirmPassword.value;
         if (!email || !password) {
-            console.error('Invalid data missing: 400');
+            console.error('Invalid authentication data: 400');
             setErrorMessage('Please enter both email and password');
             return;
         }
         if (password != confirmPassword) {
-            console.error('Invalid data missing: 400');
+            console.error('Invalid authentication data: 400');
             setErrorMessage('Passwords do not match');
+            return;
+        }
+        if (ValidateField(email, password) != null) {
+            console.error('Invalid authentication data: 400');
+            setErrorMessage(ValidateField(email, password));
             return;
         }
         register(email, password);
