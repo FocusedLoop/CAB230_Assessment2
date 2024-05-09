@@ -4,15 +4,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import VolcaneoByID from './components/VolcanoDetails';
+import VolcanoByID from './components/VolcanoDetails';
 import HomePage from './containers/HomePage';
 import UserLogin from './containers/LoginPage';
 import UserRegistration from './containers/RegisterPage';
 import ListedVolcanoes from './containers/VolcanoList';
 
-
-// Fix spelling error
-// Creates url path for different pages
+// Creates url path for different pages and assignes them to defined functions that load pages
+// All main site pages are contained within containers
+// root.render - Produces a root instance root react element and then renders it
+// StrictMode - Indentifies issues when cyclign through the code
+// BrowserRouter - Configures the web router to allow other pages to be rendered from the url
+// App - Prdouces the layout and logic for the rest of the site
+// Routes and Route - Specifies page a specific url path loads
+// A footer is present at the bottom that is displayed across all pages
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -23,7 +28,7 @@ root.render(
         <Route path="/volcanoes" element={<ListedVolcanoes />} />
         <Route path="/login" element={<UserLogin />} />
         <Route path="/register" element={<UserRegistration />} />
-        <Route path="/volcaneo" element={<VolcaneoByID />} />
+        <Route path="/volcano" element={<VolcanoByID />} />
       </Routes>
     </BrowserRouter>
     <div className='footer'>

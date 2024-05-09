@@ -1,11 +1,12 @@
 import React, { useEffect, useRef  } from "react";
 import Chart from "chart.js/auto";
-//import { CategoryScale, LinearScale, Chart, BarElement } from 'chart.js';
-//Chart.register(CategoryScale, LinearScale, BarElement)
 
+// Create and load a bargraph using chart.js
+// The bargraph displays the population density 5km, 10km, 30km, 100km
 const BarGraph = ({ volcanoDetails }) => {
     const chartRef = useRef(null);
 
+    // Remove the bargraph if one if present, then create a new one using the volcationDetails
     useEffect(() => {
         if (volcanoDetails) {
             if (chartRef.current) {
@@ -15,6 +16,7 @@ const BarGraph = ({ volcanoDetails }) => {
         }
     }, [volcanoDetails]);
 
+    // Use the population density details data to populationData
     const drawPopulationChart = () => {
         const populationData = [
             volcanoDetails.population_5km,
@@ -23,6 +25,10 @@ const BarGraph = ({ volcanoDetails }) => {
             volcanoDetails.population_100km
         ];
 
+        // Using chart.js create a bar graph
+        // Set the X axis label to the population distance
+        // Set the Y axis to the population amount
+        // Set the data on the bar graph to populationData
         const ctx = document.getElementById('populationChart').getContext('2d');
 
         chartRef.current = new Chart(ctx, {
@@ -69,4 +75,5 @@ const BarGraph = ({ volcanoDetails }) => {
     );
 }
 
+// Allow the function to be imported by other files
 export default BarGraph;

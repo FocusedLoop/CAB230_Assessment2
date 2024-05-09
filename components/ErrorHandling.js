@@ -1,3 +1,6 @@
+// Check for error cases and produce an appropriate error code based on the error number
+// If the error is unknown display the error as an unknown error with the code (to ensure all error types can be handled)
+// Note: Due to time constraints this was not fully implemented and is only used in specific areas of the code
 function errorCases(response) {
     if (!response.ok) {
         switch (response.status) {
@@ -16,4 +19,5 @@ function errorCases(response) {
     return response.json();
 }
 
+// Allow the function to be imported by other files
 export default errorCases;
