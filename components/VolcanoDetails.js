@@ -9,6 +9,7 @@ import BarGraph from "./PopulationGraph";
 // Grab the data of a volcano determined by a selected volcano and return a page displaying all the data
 // Display a map of the volcano's location
 // Display population information and a bar graph if the user is logged in (has a token)
+// Reference - (CAB230 Practical 4, 2024) and (Pigeon Maps, 2024)
 function VolcanoByID() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();

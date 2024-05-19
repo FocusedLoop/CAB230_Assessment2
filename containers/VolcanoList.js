@@ -11,6 +11,7 @@ import SearchBar from '../components/SearchBar';
 // Load a list of volcanoes by a desired searched country
 // Allow users to click on a desired volcano and view more details about it
 // Allow users to sort by searching and filter it by population distance
+// Reference - (AG Grid, 2015) and (CAB230 Practical 6, 2024)
 function ListedVolcanoes() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [search, setSearch] = useState('');

@@ -4,6 +4,7 @@ import volcanoImage from '../images/volcano.jpg'
 // Load the home page for the app
 // The home page is stylised by homepage from App.css
 // In home page display an image of a volcano and links to the login and register on the site
+// Image Reference - (Ready.gov, 2024)
 function HomePage() {
   return (
     <div className="homepage">

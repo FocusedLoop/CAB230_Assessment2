@@ -10,7 +10,7 @@ import React, { useState } from "react";
 // Base app that is run to load the site
 // The base app contains the navbar that all pages have at the top
 // The navbar allows for navigation across the site
-
+// Reference - (React, 2024)
 function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('token') !== null);
 

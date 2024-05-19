@@ -9,6 +9,7 @@ import ValidateField from "../components/formValidation";
 // Load the user login page for the app
 // Allow the user to input data into the fields, sumbit it and login to the app creating a token
 // Once a token is created the user will be able to have acsess to the full site
+// Reference - (CAB230 Practical 7, 2024)
 function UserLogin() {
 	const [errorMessage, setErrorMessage] = useState(null);
 	const navigate = useNavigate();

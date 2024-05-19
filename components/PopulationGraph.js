@@ -3,6 +3,7 @@ import Chart from "chart.js/auto";
 
 // Create and load a bargraph using chart.js
 // The bargraph displays the population density 5km, 10km, 30km, 100km
+// Reference - (Chart.js, 2024)
 const BarGraph = ({ volcanoDetails }) => {
     const chartRef = useRef(null);
 
